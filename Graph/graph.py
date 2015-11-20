@@ -16,3 +16,11 @@ class unDGraph(Graph):  #undirected graph
         self.adjLst[u].append(v)
         self.adjLst[v].append(u)
     
+class weightedGraph(Graph):
+    def addEdge(self,u,v,w):
+        self.adjLst[u].append([w,v])
+
+class weightedUnDGraph(Graph):
+    def addEdge(self,u,v,w):
+        self.adjLst[u].append([w,v])        
+        self.adjLst[v].append([w,u])
