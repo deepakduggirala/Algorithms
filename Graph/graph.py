@@ -24,3 +24,14 @@ class weightedUnDGraph(Graph):
     def addEdge(self,u,v,w):
         self.adjLst[u].append([w,v])        
         self.adjLst[v].append([w,u])
+        
+class GraphM():
+    def __init__(self,N):
+        self.adjMat = [[None for i in xrange(N)]for i in xrange(N)]
+    def addEdge(self,u,v,w=1):
+        self.adjMat[u][v] = w
+        
+class UnDGraphM(GraphM):
+    def addEdge(self,u,v,w=1):
+        self.adjMat[u][v] = w
+        self.adjMat[v][u] = w
