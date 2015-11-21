@@ -1,16 +1,15 @@
 from graph import unDGraph
+from disjointSet import disjointSet
 def detectCycleUnDgraphDisjointSets(g):
     edges = []
-    sets = [i for i in range(len(g.adjLst))]
+    sets = disjointSet(range(len(g.adjLst)))
     for u,edgeLst in enumerate(g.adjLst):   #assuming vertex numbers start from zero
         for v in edgeLst:
             if (v,u) not in edges:
                 edges.append((u,v))
-                if sets[u] != sets[v]:
-                #merge two sets and name the new set with higher node number
-                    setRepr = max(sets[u],sets[v])
-                    sets[u] = setRepr
-                    sets[v] = setRepr
+                if sets.find(u) != sets.find(v):
+                #union two sets
+                    sets.union(u,v)
                 else:
                     return True
     return False
