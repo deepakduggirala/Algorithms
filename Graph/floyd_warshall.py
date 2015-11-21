@@ -12,7 +12,7 @@ def floyd_warshal(g):
     for i in xrange(N):
         for j in xrange(N):
             wt = g.adjMat[i][j]
-            if wt:
+            if wt is not None:
                 W[0][i][j] = wt
             else:
                 W[0][i][j] = float('inf')
@@ -24,15 +24,15 @@ def floyd_warshal(g):
         prev, now = now, prev
     
     
-#    for i in range(N):
-#        for j in range(N):
-#            print '%2d'%W[prev][i][j],
-#        print ''
-#    print ''
-#    for i in range(N):
-#        for j in range(N):
-#            print '%2d'%W[now][i][j],
-#        print ''
+    for i in range(N):
+        for j in range(N):
+            print '%2d'%W[prev][i][j],
+        print ''
+    print ''
+    for i in range(N):
+        for j in range(N):
+            print '%2d'%W[now][i][j],
+        print ''
     
     return W[prev]
     
@@ -53,5 +53,8 @@ g.addEdge(2,8,2)
 g.addEdge(8,6,6)
 g.addEdge(2,5,4)
 g.addEdge(3,5,14)
+
+for i in xrange(N):
+    g.addEdge(i,i,0)
 
 W = floyd_warshal(g)
