@@ -77,9 +77,9 @@ class MinHeap():
 
 
 class MaxHeap():
-    def __init__(self, nums):
+    def __init__(self, nums=[]):
         self.heap = [-n for n in nums]
-        heapq.heapify(nums)
+        heapq.heapify(self.heap)
         
     def push(self, val):
         heapq.heappush(self.heap, -val)
