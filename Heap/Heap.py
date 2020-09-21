@@ -74,3 +74,65 @@ class MinHeap():
         if lowest != i:
             self.heap[lowest], self.heap[i] = self.heap[i], self.heap[lowest]
             return self.heapify_down(lowest)
+
+
+class MaxHeap():
+    def __init__(self, nums):
+        self.heap = [-n for n in nums]
+        heapq.heapify(nums)
+        
+    def push(self, val):
+        heapq.heappush(self.heap, -val)
+    def pop(self):
+        return -heapq.heappop(self.heap)
+    def pushpop(self, val):
+        return -heapq.pushpop(self.heap, -val)
+    def replace(self, val):
+        return -heapq.heapreplace(self.heap, -val)
+
+class KMinHeap():
+    def __init__(self, k, nums):
+        self.k = k
+        self.heap = nums[:k]
+        heapq.heapify(self.heap)
+        for i in range(k, len(nums)):
+            val = nums[i]
+            if val > self.heap[0]:
+                heapq.heappushpop(self.heap, val)
+            
+    def insert(self, val):
+        # maintains the heap size k if it is already k or increases it by 1
+        if len(self.heap) < self.k:
+            heapq.heappush(self.heap, val)
+        else:
+            if val > self.heap[0]:
+                heapq.heappushpop(self.heap, val)
+
+
+class KMaxHeap():
+    def __init__(self, k, nums):
+        self.k = k
+        # using min heap to create a max heap by using negating the numbers
+        self.heap = [-n for n in nums[:k]] 
+        heapq.heapify(self.heap)
+        for i in range(k, len(nums)):
+            val = nums[i]
+            # inoder to add an element to the k max heap, the element should be lesser than the top element
+            # since we are dealing with negative numbers the comparision sign flips
+            # val < heapmax
+            # -val > -heapmax
+            if -val > self.heap[0]:
+                heapq.heappushpop(self.heap, -val)
+            
+    def insert(self, val):
+        # val is the actual number to inserted into the max heap, not the negated number
+        # maintains the heap size k if it is already k or increases it by 1
+        if len(self.heap) < self.k:
+            heapq.heappush(self.heap, -val)
+        else:
+            # inoder to add an element to the k max heap, the element should be lesser than the top element
+            # since we are dealing with negative numbers the comparision sign flips
+            # val < heapmax
+            # -val > -heapmax
+            if -val > self.heap[0]:
+                heapq.heappushpop(self.heap, -val)
